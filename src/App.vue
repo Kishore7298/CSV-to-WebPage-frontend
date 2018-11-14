@@ -1,28 +1,41 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="container">
+    <table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Attendance</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr v-for="item in items">
+      <th scope="row">{{item.Name}}</th>
+      <td>{{item.Attendance}}</td>
+    </tr>
+    
+  </tbody>
+</table>
   </div>
 </template>
-
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import axios from 'axios';
+import api from './api';
 export default {
   name: 'app',
-  components: {
-    HelloWorld
+  data:()=>{
+    return {
+      items:[]
+    }
+  },
+  created(){
+    api().get('getjson').then((res,err)=>{
+      this.items = res.data;
+    })
   }
 }
+
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
